@@ -24,4 +24,5 @@ public class BlackJackGame {
             // Check if the guess is correct, if so end the game
         }
     }
+    
 }
