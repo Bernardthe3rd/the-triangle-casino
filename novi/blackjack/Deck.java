@@ -1,6 +1,9 @@
 package novi.blackjack;
 
 import java.util.ArrayList;
+//import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Deck {
     private ArrayList<Card> cards;
@@ -39,7 +42,14 @@ public class Deck {
     }
 
     public void shuffle() {
-
+//        Collections.shuffle(cards); easy way?
+        Random indexnummer = new Random();
+        for (int i = 0; i < cards.size(); i++) {
+            int randomIndex = indexnummer.nextInt(i + 1);
+            Card temp = cards.get(i);
+            cards.set(i, cards.get(randomIndex));
+            cards.set(randomIndex, temp);
+        }
     }
 
     public boolean isEmpty() {
@@ -48,5 +58,10 @@ public class Deck {
 
     public Card getNextCard() {
         return cards.getLast();
+    }
+
+    //als je deze methode in main aanroept kan je de huidige volgorde van je deck zien.
+    public List<Card> getCards() {
+        return cards;
     }
 }
