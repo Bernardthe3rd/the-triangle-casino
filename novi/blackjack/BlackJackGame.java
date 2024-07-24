@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class BlackJackGame {
     private Scanner inputScanner;
     private boolean gameIsRunning;
+    private Deck deck;
+    private Dealer dealer;
+    private Player player;
 
     public BlackJackGame(Scanner inputScanner) {
         this.inputScanner = inputScanner;
@@ -13,16 +16,41 @@ public class BlackJackGame {
     public void playGame() {
         gameIsRunning = true;
 
+        deck = new Deck();
         // Here you should generate the number to guess
+        player = new Player();
+        dealer = new Dealer();
+        deck.shuffle();
+        Card[] twoCards = {deck.getNextCard(), deck.getNextCard()};
+        player.addCardsToHand(twoCards);
+        Card[] oneCardDealer = {deck.getNextCard()};
+        dealer.addCardsToHand(oneCardDealer);
 
+        runningGame();
+
+    }
+
+    public void runningGame() {
         while (gameIsRunning) {
-            System.out.println("Make a guess");
-
+            System.out.println(player.renderHand());
+            System.out.println("Hit or stay?");
             var input = inputScanner.nextLine();
             System.out.printf("You typed: %s\n", input);
 
-            // Check if the guess is correct, if so end the game
+            player.performMove(deck, input);
+            dealer.performMove(deck);
+
+            if (dealer.isStaying() && dealer.getHandValue() < player.getHandValue()) {
+                System.out.println("You win!");
+                gameIsRunning = false;
+            }
+
+            if (player.isStaying() && player.getHandValue() <= dealer.getHandValue()) {
+                System.out.println("You lose!");
+                gameIsRunning = false;
+            }
+
         }
     }
-    
+
 }

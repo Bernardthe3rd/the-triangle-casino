@@ -1,9 +1,9 @@
 package novi.blackjack;
 
 public class CardSuit {
-    public String name;
-    public char symbol;
-    public String color;
+    private final String name;
+    private final char symbol;
+    private final String color;
 
     public CardSuit(char symbol, String name, String color) {
         this.symbol = symbol;

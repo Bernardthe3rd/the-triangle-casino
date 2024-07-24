@@ -23,10 +23,15 @@ public class Hand {
     }
 
     public String render() {
-        String renderedHand = "";
+//        String renderedHand = "";
+//        for (Card card : cards) {
+//            renderedHand = renderedHand + card.render();
+//        }
+//        return renderedHand;
+        StringBuilder sb = new StringBuilder();
         for (Card card : cards) {
-            renderedHand = renderedHand + card.render();
+            sb.append(card.render());
         }
-        return renderedHand;
+        return sb.toString();
     }
 }

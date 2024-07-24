@@ -1,9 +1,8 @@
 package novi.blackjack;
 
-import java.util.ArrayList;
+import java.util.*;
 //import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
 
 public class Deck {
     private ArrayList<Card> cards;
@@ -29,7 +28,7 @@ public class Deck {
                 new CardValue("ten", 10),
                 new CardValue("boer", 10),
                 new CardValue("vrouw", 10),
-                new CardValue("koning", 12),
+                new CardValue("koning", 10),
         };
 
         cards = new ArrayList<>();
@@ -57,7 +56,9 @@ public class Deck {
     }
 
     public Card getNextCard() {
-        return cards.getLast();
+        Card givingCard = cards.getLast();
+        cards.remove(givingCard);
+        return givingCard;
     }
 
     //als je deze methode in main aanroept kan je de huidige volgorde van je deck zien.

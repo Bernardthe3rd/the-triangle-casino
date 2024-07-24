@@ -1,8 +1,8 @@
 package novi.blackjack;
 
 public class CardValue {
-    public String name;
-    public int value;
+    private final String name;
+    private final int value;
 
     public CardValue(String name, int value) {
         this.name = name;
