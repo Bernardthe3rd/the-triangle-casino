@@ -1,8 +1,8 @@
 package novi.slotmachines;
 
 public abstract class SlotMachine {
-    private String name;
-    private int numberOfReels;
+    private final String name;
+    private final int numberOfReels;
 
     public SlotMachine(String name, int numberOfReels) {
         this.name = name;
@@ -10,7 +10,8 @@ public abstract class SlotMachine {
     }
 
     public void renderIntro() {
-
+        System.out.println("Welcome to the fruitmachine game!");
+        System.out.println("Which game do you want to play?");
     }
 
     public int roll() {

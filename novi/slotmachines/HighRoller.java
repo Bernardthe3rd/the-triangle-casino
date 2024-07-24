@@ -20,4 +20,8 @@ public class HighRoller extends SlotMachine {
     protected String renderWinningConditions() {
         return "You won: " + calculatePayout() + " at the High roller machine!";
     }
+
+    public String getName() {
+        return name;
+    }
 }

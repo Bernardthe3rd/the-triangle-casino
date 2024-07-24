@@ -20,4 +20,8 @@ public class Penny extends SlotMachine {
     protected String renderWinningConditions() {
         return "You won: " + calculatePayout() + " at the penny machine!";
     }
+
+    public String getName() {
+        return name;
+    }
 }

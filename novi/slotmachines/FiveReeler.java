@@ -20,4 +20,8 @@ public class FiveReeler extends SlotMachine {
     protected String renderWinningConditions() {
         return "You won: " + calculatePayout() + " at the Five Reeler machine!";
     }
+
+    public String getName() {
+        return name;
+    }
 }
