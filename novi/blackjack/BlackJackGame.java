@@ -42,11 +42,27 @@ public class BlackJackGame {
 
             if (dealer.isStaying() && dealer.getHandValue() < player.getHandValue()) {
                 System.out.println("You win!");
+                System.out.println("dealer hands value: " + dealer.getHandValue());
+                System.out.println("player hands value: " + player.getHandValue());
                 gameIsRunning = false;
             }
 
             if (player.isStaying() && player.getHandValue() <= dealer.getHandValue()) {
                 System.out.println("You lose!");
+                System.out.println("dealer hands value: " + dealer.getHandValue());
+                System.out.println("player hands value: " + player.getHandValue());
+                gameIsRunning = false;
+            }
+
+            if (player.isBust() && !player.isStaying()) {
+                System.out.println("You bust!");
+                System.out.println("player hands value: " + player.getHandValue());
+                gameIsRunning = false;
+            }
+
+            if (dealer.isBust() && !dealer.isStaying()) {
+                System.out.println("You win!");
+                System.out.println("dealer hands value: " + dealer.getHandValue());
                 gameIsRunning = false;
             }
 

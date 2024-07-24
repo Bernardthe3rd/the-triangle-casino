@@ -13,9 +13,10 @@ public class Player {
         if (move.equalsIgnoreCase("hit")) {
             Card[] oneCardPlayer = {deck.getNextCard()};
             addCardsToHand(oneCardPlayer);
-            if (isBust()) {
-                System.out.println("You have lost!");
-            }
+//            if (isBust()) {
+//                System.out.println("You have lost!");
+//
+//            }
         } else {
             staying = true;
         }
