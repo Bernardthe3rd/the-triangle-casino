@@ -1,5 +1,7 @@
 package novi.slotmachines;
 
+import java.util.List;
+
 public class ReelDeck {
     private List<Reel> reels;
 
@@ -8,15 +10,26 @@ public class ReelDeck {
     }
 
     public void roll() {
-
+        for (Reel reel : reels) {
+            reel.roll();
+        }
     }
 
     public String render() {
-        return "render reeldeck";
+        String renderedReels = "";
+        for (Reel reel : reels) {
+            renderedReels = renderedReels + " " + reel.render();
+        }
+        return renderedReels;
     }
 
-    public void allReelsHaveSymbol(Symbol symbol) {
-
+    public boolean allReelsHaveSymbol(Symbol symbol) {
+        for (Reel reel : reels) {
+            if (reel.getSymbol() != symbol) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
