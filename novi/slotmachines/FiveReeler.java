@@ -14,11 +14,23 @@ public class FiveReeler extends SlotMachine {
     }
 
     protected int calculatePayout() {
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.STAR)) {
+            return 50;
+        } else if (this.reelDeck.allReelsHaveSymbol(Symbol.YINYANG)) {
+            return 100;
+        } else if (this.reelDeck.allReelsHaveSymbol(Symbol.SPADE)) {
+            return 150;
+        } else if (this.reelDeck.allReelsHaveSymbol(Symbol.HEART)) {
+            return 200;
+        } else if (this.reelDeck.allReelsHaveSymbol(Symbol.CLUB)) {
+            return 250;
+        }
         return rollPrice * numberOfReels;
     }
 
     protected String renderWinningConditions() {
-        return "You won: " + calculatePayout() + " at the Five Reeler machine!";
+        return "3x star | 50 tokens\n" + "3x yinyang | 100 tokens\n" + "3x spade | 150 tokens\n"
+                + "3x heart | 200 tokens\n" + "3x club | 250 tokens\n";
     }
 
     public String getName() {

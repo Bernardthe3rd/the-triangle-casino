@@ -18,7 +18,7 @@ public class ReelDeck {
     public String render() {
         String renderedReels = "";
         for (Reel reel : reels) {
-            renderedReels = renderedReels + " " + reel.render();
+            renderedReels = renderedReels + " " + reel.render() + "\n";
         }
         return renderedReels;
     }
