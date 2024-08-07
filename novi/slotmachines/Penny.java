@@ -9,16 +9,40 @@ public class Penny extends SlotMachine {
         super(name, numberOfReels);
     }
 
+    @Override
     public int getRollPrice() {
         return rollPrice;
     }
 
+    @Override
     protected int calculatePayout() {
-        return rollPrice * numberOfReels;
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.STAR)) {
+            return 5;
+        }
+
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.YINYANG)) {
+            return 5;
+        }
+
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.SPADE)) {
+            return 5;
+        }
+
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.HEART)) {
+            return 5;
+        }
+
+        if (this.reelDeck.allReelsHaveSymbol(Symbol.CLUB)) {
+            return 5;
+        }
+
+        return 0;
     }
 
+    @Override
     protected String renderWinningConditions() {
-        return "You won: " + calculatePayout() + " at the penny machine!";
+        return "3x star    | 5 tokens\n" + "3x yinyang | 10 tokens\n" + "3x spade   | 15 tokens\n"
+                + "3x heart   | 20 tokens\n" + "3x club    | 25 tokens\n";
     }
 
     public String getName() {

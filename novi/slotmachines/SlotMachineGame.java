@@ -5,18 +5,71 @@ import java.util.Scanner;
 public class SlotMachineGame {
     private Scanner inputScanner;
     private boolean gameIsRunning;
-    private int playerCoins;
+    private int startCoins;
+    private int currentCoins;
     private SlotMachine slotMachine;
 
     public SlotMachineGame(Scanner inputScanner) {
         this.inputScanner = inputScanner;
-        playerCoins = 100;
+        startCoins = 100;
+        currentCoins = startCoins;
     }
 
     public void playGame() {
         gameIsRunning = true;
 
+        slotMachine = pickMachine(currentCoins);
+        slotMachine.renderIntro();
         while (gameIsRunning) {
+            gameLoop();
+        }
+
+        System.out.println("Are you sure you want to exit? Press s to stop completely and p to continue with another game");
+        var finalInput = inputScanner.nextLine();
+        if (finalInput.equalsIgnoreCase("s")) {
+            gameIsRunning = false;
+        } else {
+            playGame();
+        }
+    }
+
+    private void gameLoop() {
+        if (currentCoins < slotMachine.getRollPrice()) {
+            System.out.println("You don't have enough coins to roll");
+            gameIsRunning = false;
+            return;
+        }
+
+        String move = nextMove();
+        if (move.equals("s")) {
+            System.out.println("Thank you for playing! You have " + currentCoins + " coins left");
+            gameIsRunning = false;
+        } else {
+            this.currentCoins = currentCoins - slotMachine.getRollPrice();
+            int winCoins = slotMachine.roll();
+            this.currentCoins = currentCoins + winCoins;
+            System.out.println(slotMachine.render());
+            System.out.println("You won " + winCoins + " coins");
+            System.out.println("Now you have " + currentCoins + " coins left");
+        }
+
+    }
+
+    private String nextMove() {
+        while (true) {
+            System.out.println("Enter r to roll or s to stop");
+
+            if (inputScanner.hasNext()) {
+                String move = inputScanner.nextLine();
+                if (move.equalsIgnoreCase("r") || move.equalsIgnoreCase("s")) {
+                    return move;
+                }
+            }
+        }
+    }
+
+    private SlotMachine pickMachine(int coins) {
+        while (true) {
             System.out.println("Which game do you want to play?");
             System.out.println("kies 1 voor Penny - kies 2 voor FiveReeler - kies 3 voor Highroller - kies 4 voor close game");
             try {
@@ -32,27 +85,17 @@ public class SlotMachineGame {
                     case 3:
                         slotMachine = new HighRoller("Highroller", 3);
                         break;
-                    case 4:
-                        return;
                     default:
-                        System.out.println("Choose a right number");
+                        System.out.println("Choose a machine");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("You entered an invalid number!");
             }
-
-            if (playerCoins > slotMachine.getRollPrice()) {
-                slotMachine.renderIntro();
-                slotMachine.roll();
-                slotMachine.renderWinningConditions();
+            if (slotMachine.getRollPrice() >= coins) {
+                System.out.println("You don't have enough coins to roll");
             } else {
-                continue;
+                return slotMachine;
             }
-
-            System.out.println("Ga verder met de while loop");
-
-
-            // Check if the guess is correct, if so end the game
         }
     }
 }

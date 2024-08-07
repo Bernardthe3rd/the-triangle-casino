@@ -18,8 +18,9 @@ public abstract class SlotMachine {
     }
 
     public void renderIntro() {
-        System.out.println("Welcome to the fruitmachine game!");
-
+        System.out.println("Welcome to the " + name + " game!");
+        System.out.println("Winning conditions");
+        System.out.println(renderWinningConditions());
     }
 
     public int roll() {
