@@ -25,33 +25,44 @@ public class HangmanGame {
         randomWord = listOfWords[getRandomWord()];
         System.out.println(randomWord);
         System.out.println(replaceRandomWordWithAsterisks(randomWord));
+        guessState = replaceRandomWordWithAsterisks(randomWord);
 
 
         while (gameIsRunning) {
             System.out.println("Vul een letter in");
-            String guess = inputScanner.nextLine();
+            char guess = inputScanner.next().charAt(0);
 
-            if (!applyGuess(guess)) {
-                guessedLetters.add(guess);
-                if (applyGuess(guess)) {
-                    System.out.println(revealGuessedLetters(randomWord, guessState, guess));
-                } else {
-                    countWrongGuesses++;
-                    ImageFactory.getImage(countWrongGuesses);
-                }
-            } else {
-                guessedLetters.add(guess);
-                throw new DuplicateLetterException(guess);
+            try {
+                applyGuess(String.valueOf(guess));
+            } catch (DuplicateLetterException e) {
+                System.out.println(e.getMessage());
+                continue;
             }
 
-            if (!revealGuessedLetters(randomWord, guessState, guess).contains("*")) {
+//            if (b) {
+            if (applyRightGuess(guess).contains(true)) {
+                System.out.println(revealGuessedLetters(randomWord, guessState, String.valueOf(guess)));
+                guessState = revealGuessedLetters(randomWord, guessState, String.valueOf(guess));
+            } else {
+                countWrongGuesses++;
+                ImageFactory.getImage(countWrongGuesses);
+            }
+            guessedLetters.add(String.valueOf(guess));
+//            } else {
+//                guessedLetters.add(guess);
+//                throw new DuplicateLetterException(guess);
+//            }
+
+            if (!revealGuessedLetters(randomWord, guessState, String.valueOf(guess)).contains("*")) {
                 System.out.println("You won! You guessed: " + randomWord);
+                gameIsRunning = false;
             } else {
                 continue;
             }
 
             if (countWrongGuesses == 8) {
                 System.out.println("You lost!)");
+                gameIsRunning = false;
             } else {
                 continue;
             }
@@ -80,15 +91,32 @@ public class HangmanGame {
     }
 
     public boolean applyGuess(String letter) {
-        boolean guessed = false;
+        boolean guessed = true;
         for (String guessedLetter : guessedLetters) {
             if (guessedLetter.equals(letter)) {
-                guessed = true;
+                throw new DuplicateLetterException(letter);
             } else {
-                guessed = false;
+                guessed = true;
             }
         }
         return guessed;
+    }
+
+    public List<Boolean> applyRightGuess(char letter) {
+        List<Boolean> goodOrBadList = new ArrayList<>();
+        char[] randomWordLetters = new char[randomWord.length()];
+        for (int i = 0; i < randomWord.length(); i++) {
+            randomWordLetters[i] = randomWord.charAt(i);
+        }
+
+        for (char guessedLetter : randomWordLetters) {
+            if (guessedLetter == letter) {
+                goodOrBadList.add(true);
+            } else {
+                goodOrBadList.add(false);
+            }
+        }
+        return goodOrBadList;
     }
 
     public String revealGuessedLetters(String word, String currentGuess, String guessedLetter) {
