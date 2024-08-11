@@ -7,13 +7,15 @@ import java.util.Scanner;
 public class BlackJackGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
-    private Deck deck;
-    private Dealer dealer;
-    private Player player;
+
+    protected Deck deck;
+    protected Dealer dealer;
+    protected Player player;
 
     public BlackJackGame(Scanner inputScanner) {
         this.inputScanner = inputScanner;
     }
+
 
     @Override
     public void playGame(int coins) {

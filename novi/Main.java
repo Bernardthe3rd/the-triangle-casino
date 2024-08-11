@@ -3,8 +3,7 @@ package novi;
 //import novi.blackjack.BlackJackGame;
 //import novi.higherlower.HigherLowerGame;
 //import novi.slotmachines.SlotMachineGame;
-
-import novi.hangman.HangmanGame;
+//import novi.hangman.HangmanGame;
 
 import java.util.Scanner;
 
