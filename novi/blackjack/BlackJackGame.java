@@ -1,8 +1,10 @@
 package novi.blackjack;
 
+import novi.Game;
+
 import java.util.Scanner;
 
-public class BlackJackGame {
+public class BlackJackGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
     private Deck deck;
@@ -13,7 +15,8 @@ public class BlackJackGame {
         this.inputScanner = inputScanner;
     }
 
-    public void playGame() {
+    @Override
+    public void playGame(int coins) {
         gameIsRunning = true;
 
         deck = new Deck();
@@ -67,6 +70,21 @@ public class BlackJackGame {
             }
 
         }
+    }
+
+    @Override
+    public String getName() {
+        return "BlackJack Game";
+    }
+
+    @Override
+    public int getMinimalRequiredCoins() {
+        return 10;
+    }
+
+    @Override
+    public int getWinnings() {
+        return 25;
     }
 
 }

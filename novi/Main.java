@@ -18,8 +18,11 @@ public class Main {
 //        gameTwo.playGame();
 //        SlotMachineGame gameThree = new SlotMachineGame(inputScanner);
 //        gameThree.playGame();
-        HangmanGame gameFour = new HangmanGame(inputScanner);
-        gameFour.playGame();
+//        HangmanGame gameFour = new HangmanGame(inputScanner);
+//        gameFour.playGame();
+
+        Casino casino = new Casino(inputScanner);
+        casino.start();
 
 
     }
