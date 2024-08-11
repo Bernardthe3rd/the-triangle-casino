@@ -39,19 +39,14 @@ public class HangmanGame {
                 continue;
             }
 
-//            if (b) {
             if (applyRightGuess(guess).contains(true)) {
                 System.out.println(revealGuessedLetters(randomWord, guessState, String.valueOf(guess)));
                 guessState = revealGuessedLetters(randomWord, guessState, String.valueOf(guess));
             } else {
-                countWrongGuesses++;
-                ImageFactory.getImage(countWrongGuesses);
+                printHangman();
             }
+
             guessedLetters.add(String.valueOf(guess));
-//            } else {
-//                guessedLetters.add(guess);
-//                throw new DuplicateLetterException(guess);
-//            }
 
             if (!revealGuessedLetters(randomWord, guessState, String.valueOf(guess)).contains("*")) {
                 System.out.println("You won! You guessed: " + randomWord);
@@ -67,16 +62,8 @@ public class HangmanGame {
                 continue;
             }
 
-//            nieuwe game loop methode;
         }
 
-//        System.out.println("Are you sure you want to exit? Press s to stop completely and p to continue with another game");
-//        var finalInput = inputScanner.nextLine();
-//        if (finalInput.equalsIgnoreCase("s")) {
-//            gameIsRunning = false;
-//        } else {
-//            playGame();
-//        }
     }
 
     public int getRandomWord() {
@@ -86,20 +73,15 @@ public class HangmanGame {
     }
 
     public String replaceRandomWordWithAsterisks(String word) {
-        String replacedWord = "*".repeat(word.length());
-        return replacedWord;
+        return "*".repeat(word.length());
     }
 
-    public boolean applyGuess(String letter) {
-        boolean guessed = true;
+    public void applyGuess(String letter) {
         for (String guessedLetter : guessedLetters) {
             if (guessedLetter.equals(letter)) {
                 throw new DuplicateLetterException(letter);
-            } else {
-                guessed = true;
             }
         }
-        return guessed;
     }
 
     public List<Boolean> applyRightGuess(char letter) {
@@ -133,5 +115,13 @@ public class HangmanGame {
             }
         }
         return revealed.toString();
+    }
+
+    public void printHangman() {
+        countWrongGuesses++;
+        List<String> resultImage = ImageFactory.getImage(countWrongGuesses);
+        for (String item : resultImage) {
+            System.out.println(item);
+        }
     }
 }
