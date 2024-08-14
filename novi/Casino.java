@@ -1,5 +1,7 @@
 package novi;
 
+import com.diogonunes.jcolor.AnsiFormat;
+import com.diogonunes.jcolor.Attribute;
 import novi.blackjack.BlackJackGame;
 import novi.hangman.HangmanGame;
 import novi.higherlower.HigherLowerGame;
@@ -9,11 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.diogonunes.jcolor.Ansi.colorize;
+
 public class Casino {
     private Scanner inputscanner;
     private List<Game> listOfGames;
     private Game currentGame;
     private int coins;
+
+    private AnsiFormat wonFormat = new AnsiFormat(Attribute.GREEN_TEXT(), Attribute.BLACK_BACK(), Attribute.BOLD());
+    private AnsiFormat loseFormat = new AnsiFormat(Attribute.RED_TEXT(), Attribute.YELLOW_BACK(), Attribute.BOLD());
 
     public Casino(Scanner inputscanner) {
         this.inputscanner = inputscanner;
@@ -27,8 +34,8 @@ public class Casino {
     }
 
     public void start() {
-        System.out.println("Welcome to the Casino!");
-        System.out.println("You get a 1000 coins to start playing");
+        System.out.println(colorize("Welcome to the Casino!", Attribute.BRIGHT_CYAN_TEXT(), Attribute.BLACK_BACK(), Attribute.BOLD()));
+        System.out.println(colorize("You get a 1000 coins to start playing", Attribute.YELLOW_TEXT()));
         gameLoop();
     }
 
@@ -49,14 +56,14 @@ public class Casino {
 //                System.exit(0);
                 gameIsRunning = false;
             }
-        }
 
-        if (gameIsRunning) {
-            int input2 = inputscanner.nextInt();
-            playAGame(input2);
+            if (gameIsRunning) {
+                int input2 = inputscanner.nextInt();
+                playAGame(input2);
 
-            var coinResult = currentGame.getWinnings();
-            processWinnings(coinResult);
+                var coinResult = currentGame.getWinnings();
+                processWinnings(coinResult);
+            }
         }
 
 
@@ -100,9 +107,9 @@ public class Casino {
         this.coins = this.coins + winnigs;
 
         if (winnigs >= 0) {
-            System.out.printf("You won %d coins\n", winnigs);
+            System.out.println(colorize("You won " + winnigs + " coins\n", wonFormat));
         } else {
-            System.out.printf("You lost %d coins\n", -winnigs);
+            System.out.println(colorize("You lost " + winnigs + " coins\n", loseFormat));
         }
         System.out.printf("You have %d coins\n", coins);
     }

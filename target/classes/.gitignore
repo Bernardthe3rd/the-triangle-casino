@@ -1,0 +1,7 @@
+.idea
+out
+
+#Mac OS
+.DS_Store
+*.iml
+DS_Store
