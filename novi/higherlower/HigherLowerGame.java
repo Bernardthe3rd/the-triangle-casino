@@ -45,6 +45,17 @@ public class HigherLowerGame implements Game {
         System.out.println("Correct! You guessed the number in " + guessedNumber + " turns");
     }
 
+    private int calculateWinnings() {
+        if (guessedNumber <= 3) {
+            return 20;
+        } else if (guessedNumber <= 6) {
+            return 10;
+        } else if (guessedNumber <= 9) {
+            return 5;
+        }
+        return 0;
+    }
+
     @Override
     public String getName() {
         return "Higher Lower Game";
@@ -52,12 +63,12 @@ public class HigherLowerGame implements Game {
 
     @Override
     public int getMinimalRequiredCoins() {
-        return 1;
+        return 5;
     }
 
     @Override
     public int getWinnings() {
-        return 10;
+        return calculateWinnings() - getMinimalRequiredCoins();
     }
 
 

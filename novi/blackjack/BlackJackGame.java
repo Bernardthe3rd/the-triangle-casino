@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class BlackJackGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
+    private boolean gameWon;
 
     protected Deck deck;
     protected Dealer dealer;
@@ -49,6 +50,7 @@ public class BlackJackGame implements Game {
                 System.out.println("You win!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = true;
                 gameIsRunning = false;
             }
 
@@ -56,18 +58,21 @@ public class BlackJackGame implements Game {
                 System.out.println("You lose!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = false;
                 gameIsRunning = false;
             }
 
             if (player.isBust() && !player.isStaying()) {
                 System.out.println("You bust!");
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = false;
                 gameIsRunning = false;
             }
 
             if (dealer.isBust() && !dealer.isStaying()) {
                 System.out.println("You win!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
+                gameWon = true;
                 gameIsRunning = false;
             }
 
@@ -86,7 +91,7 @@ public class BlackJackGame implements Game {
 
     @Override
     public int getWinnings() {
-        return 25;
+        return gameWon ? 25 : -10;
     }
 
 }

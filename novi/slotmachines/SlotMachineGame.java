@@ -104,7 +104,7 @@ public class SlotMachineGame implements Game {
 
     @Override
     public String getName() {
-        return "Slotmachine games";
+        return "Slotmachine Game";
     }
 
     @Override
@@ -114,6 +114,6 @@ public class SlotMachineGame implements Game {
 
     @Override
     public int getWinnings() {
-        return 50;
+        return currentCoins - startCoins - getMinimalRequiredCoins();
     }
 }
