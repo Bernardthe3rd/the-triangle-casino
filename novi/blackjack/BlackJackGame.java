@@ -1,19 +1,25 @@
 package novi.blackjack;
 
+import novi.Game;
+
 import java.util.Scanner;
 
-public class BlackJackGame {
+public class BlackJackGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
-    private Deck deck;
-    private Dealer dealer;
-    private Player player;
+    private boolean gameWon;
+
+    protected Deck deck;
+    protected Dealer dealer;
+    protected Player player;
 
     public BlackJackGame(Scanner inputScanner) {
         this.inputScanner = inputScanner;
     }
 
-    public void playGame() {
+
+    @Override
+    public void playGame(int coins) {
         gameIsRunning = true;
 
         deck = new Deck();
@@ -44,6 +50,7 @@ public class BlackJackGame {
                 System.out.println("You win!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = true;
                 gameIsRunning = false;
             }
 
@@ -51,22 +58,40 @@ public class BlackJackGame {
                 System.out.println("You lose!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = false;
                 gameIsRunning = false;
             }
 
             if (player.isBust() && !player.isStaying()) {
                 System.out.println("You bust!");
                 System.out.println("player hands value: " + player.getHandValue());
+                gameWon = false;
                 gameIsRunning = false;
             }
 
             if (dealer.isBust() && !dealer.isStaying()) {
                 System.out.println("You win!");
                 System.out.println("dealer hands value: " + dealer.getHandValue());
+                gameWon = true;
                 gameIsRunning = false;
             }
 
         }
+    }
+
+    @Override
+    public String getName() {
+        return "BlackJack Game";
+    }
+
+    @Override
+    public int getMinimalRequiredCoins() {
+        return 10;
+    }
+
+    @Override
+    public int getWinnings() {
+        return gameWon ? 25 : -10;
     }
 
 }

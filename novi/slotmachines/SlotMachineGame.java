@@ -1,8 +1,10 @@
 package novi.slotmachines;
 
+import novi.Game;
+
 import java.util.Scanner;
 
-public class SlotMachineGame {
+public class SlotMachineGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
     private int startCoins;
@@ -15,7 +17,8 @@ public class SlotMachineGame {
         currentCoins = startCoins;
     }
 
-    public void playGame() {
+    @Override
+    public void playGame(int coins) {
         gameIsRunning = true;
 
         slotMachine = pickMachine(currentCoins);
@@ -29,7 +32,7 @@ public class SlotMachineGame {
         if (finalInput.equalsIgnoreCase("s")) {
             gameIsRunning = false;
         } else {
-            playGame();
+            playGame(coins);
         }
     }
 
@@ -97,5 +100,20 @@ public class SlotMachineGame {
                 return slotMachine;
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Slotmachine Game";
+    }
+
+    @Override
+    public int getMinimalRequiredCoins() {
+        return 100;
+    }
+
+    @Override
+    public int getWinnings() {
+        return currentCoins - startCoins - getMinimalRequiredCoins();
     }
 }

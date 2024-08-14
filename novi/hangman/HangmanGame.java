@@ -1,12 +1,15 @@
 package novi.hangman;
 
+import novi.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HangmanGame {
+public class HangmanGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
+    private boolean gameWon;
 
     private String[] listOfWords = {"woord", "monitor", "automonteur", "banaan", "macbook"};
     private String randomWord;
@@ -18,7 +21,8 @@ public class HangmanGame {
         this.inputScanner = inputScanner;
     }
 
-    public void playGame() {
+    @Override
+    public void playGame(int coins) {
         gameIsRunning = true;
 
         System.out.println("Welcome to Hangman!");
@@ -50,6 +54,7 @@ public class HangmanGame {
 
             if (!revealGuessedLetters(randomWord, guessState, String.valueOf(guess)).contains("*")) {
                 System.out.println("You won! You guessed: " + randomWord);
+                gameWon = true;
                 gameIsRunning = false;
             } else {
                 continue;
@@ -57,6 +62,7 @@ public class HangmanGame {
 
             if (countWrongGuesses == 8) {
                 System.out.println("You lost!)");
+                gameWon = false;
                 gameIsRunning = false;
             } else {
                 continue;
@@ -123,5 +129,20 @@ public class HangmanGame {
         for (String item : resultImage) {
             System.out.println(item);
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Hangman Game";
+    }
+
+    @Override
+    public int getMinimalRequiredCoins() {
+        return 15;
+    }
+
+    @Override
+    public int getWinnings() {
+        return gameWon ? 30 : -getMinimalRequiredCoins() - 10;
     }
 }

@@ -1,9 +1,11 @@
 package novi.higherlower;
 
+import novi.Game;
+
 import java.util.Random;
 import java.util.Scanner;
 
-public class HigherLowerGame {
+public class HigherLowerGame implements Game {
     private Scanner inputScanner;
     private boolean gameIsRunning;
     int guessedNumber = 0;
@@ -12,7 +14,9 @@ public class HigherLowerGame {
         this.inputScanner = inputScanner;
     }
 
-    public void playGame() {
+
+    @Override
+    public void playGame(int coins) {
         gameIsRunning = true;
 
         // Here you should generate the number to guess
@@ -40,6 +44,34 @@ public class HigherLowerGame {
 
         System.out.println("Correct! You guessed the number in " + guessedNumber + " turns");
     }
+
+    private int calculateWinnings() {
+        if (guessedNumber <= 3) {
+            return 20;
+        } else if (guessedNumber <= 6) {
+            return 10;
+        } else if (guessedNumber <= 9) {
+            return 5;
+        }
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return "Higher Lower Game";
+    }
+
+    @Override
+    public int getMinimalRequiredCoins() {
+        return 5;
+    }
+
+    @Override
+    public int getWinnings() {
+        return calculateWinnings() - getMinimalRequiredCoins();
+    }
+
+
 }
 
 // solution one :

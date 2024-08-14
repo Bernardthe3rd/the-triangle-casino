@@ -3,8 +3,7 @@ package novi;
 //import novi.blackjack.BlackJackGame;
 //import novi.higherlower.HigherLowerGame;
 //import novi.slotmachines.SlotMachineGame;
-
-import novi.hangman.HangmanGame;
+//import novi.hangman.HangmanGame;
 
 import java.util.Scanner;
 
@@ -18,8 +17,11 @@ public class Main {
 //        gameTwo.playGame();
 //        SlotMachineGame gameThree = new SlotMachineGame(inputScanner);
 //        gameThree.playGame();
-        HangmanGame gameFour = new HangmanGame(inputScanner);
-        gameFour.playGame();
+//        HangmanGame gameFour = new HangmanGame(inputScanner);
+//        gameFour.playGame();
+
+        Casino casino = new Casino(inputScanner);
+        casino.start();
 
 
     }
